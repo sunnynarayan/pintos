@@ -1,0 +1,7 @@
+/*
+ * A program that prints your name
+*/
+int test_print_name(void){
+	printf("Hello Sunny Narayan\n");
+	return 0;
+}
