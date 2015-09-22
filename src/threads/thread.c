@@ -64,6 +64,7 @@ static void kernel_thread (thread_func *, void *aux);
 static void idle (void *aux UNUSED);
 static struct thread *running_thread (void);
 static struct thread *next_thread_to_run (void);
+static struct list_elem* list_max_delete(struct list *list);
 static void init_thread (struct thread *, const char *name, int priority);
 static bool is_thread (struct thread *) UNUSED;
 static void *alloc_frame (struct thread *, size_t size);
@@ -496,7 +497,25 @@ next_thread_to_run (void)
   if (list_empty (&ready_list))
     return idle_thread;
   else
-    return list_entry (list_pop_front (&ready_list), struct thread, elem);
+    return list_entry (list_max_delete (&ready_list), struct thread, elem);
+}
+
+static struct list_elem* list_max_delete(struct list *list)
+{
+  struct list_elem *max = list_begin (list);
+    if (max != list_end (list)) 
+    {
+      struct list_elem *e;
+      for (e = list_next (max); e != list_end (list); e = list_next (e))
+      {
+          struct thread *a = list_entry(e,struct thread,elem);
+          struct thread *b = list_entry(max,struct thread,elem);
+          if(a->priority>b->priority)
+            max=e;
+      }
+    }
+    list_remove(max);
+  return max;
 }
 
 /* Completes a thread switch by activating the new thread's page
