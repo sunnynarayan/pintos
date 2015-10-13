@@ -6,6 +6,7 @@ void run_test (const char *);
 typedef void test_func (void);
 
 extern test_func testing_priority;
+extern test_func test_lab5;
 extern test_func test_print_name;
 extern test_func test_alarm_single;
 extern test_func test_alarm_multiple;
