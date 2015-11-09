@@ -7,7 +7,7 @@
 #include "threads/malloc.h"
 
 /* A directory. */
-struct dir 
+struct dir  // Here there is no field of subdirectory defined in the struct
   {
     struct inode *inode;                /* Backing store. */
     off_t pos;                          /* Current position. */
